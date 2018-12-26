@@ -1,0 +1,44 @@
+local musicgui = Instance.new("ScreenGui")
+local id = Instance.new("TextBox")
+local play = Instance.new("TextButton")
+musicgui.Name = "musicgui"
+musicgui.Parent = game.CoreGui
+id.Name = "id"
+id.Parent = musicgui
+id.BackgroundColor3 = Color3.new(0, 0, 0)
+id.BackgroundTransparency = 0.5
+id.BorderSizePixel = 0
+id.Position = UDim2.new(0.950999975, 0, 0.97299999, 0)
+id.Size = UDim2.new(0, 93, 0, 28)
+id.Font = Enum.Font.SourceSans
+id.PlaceholderText = "id here"
+id.Text = ""
+id.TextColor3 = Color3.new(1, 1, 1)
+id.TextSize = 20
+play.Name = "play"
+play.Parent = musicgui
+play.BackgroundColor3 = Color3.new(0, 0, 0)
+play.BackgroundTransparency = 0.5
+play.BorderSizePixel = 0
+play.Position = UDim2.new(0.921999991, 0, 0.97299999, 0)
+play.Size = UDim2.new(0, 56, 0, 28)
+play.Font = Enum.Font.SourceSans
+play.Text = "Play"
+play.TextColor3 = Color3.new(1, 1, 1)
+play.TextSize = 20
+
+play.MouseButton1Click:connect(function()
+for _,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+if v.Name == "BoomBox" then
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+if game.Players.LocalPlayer.Character:FindFirstChild("BoomBox") ~= nil then
+game.Players.LocalPlayer.Character.BoomBox.Remote:FireServer("PlaySong", id.Text)
+wait(0.1)
+game.Players.LocalPlayer.Character.BoomBox.Server:Destroy()
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools(v)
+else
+print("hmm")
+end
+end
+end
+end)
